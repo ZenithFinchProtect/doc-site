@@ -1,27 +1,13 @@
 import Link from "next/link";
 import { ArrowRight, BookOpen, Bot, Wrench, ExternalLink, ChevronRight } from "lucide-react";
+import { getHomeConfig } from "@/lib/homepage";
 
-const products = [
-  { name: "Rust Internal Plus", slug: "rust-internal-plus", description: "USB flash drive injection method", color: "from-orange-500 to-red-500" },
-  { name: "Rust Internal Pro", slug: "rust-internal-pro", description: "Syringe loader with Discord overlay", color: "from-orange-500 to-red-500" },
-  { name: "Rust Lite", slug: "rust-lite", description: "Syringe loader — lightweight build", color: "from-orange-500 to-amber-500" },
-  { name: "Rust Lite (Orion)", slug: "rust-lite-alt", description: "Alternative Orion loader setup", color: "from-orange-500 to-amber-500" },
-  { name: "Rust Script Setup", slug: "rust-script-setup", description: "Recoil script with auto weapon detection", color: "from-amber-500 to-yellow-500" },
-  { name: "The Externals", slug: "the-externals", description: "External cheat with driver injection", color: "from-blue-500 to-cyan-500" },
-  { name: "BO7 Internal", slug: "bo7", description: "Black Ops 7 internal with RivaTuner", color: "from-blue-600 to-indigo-500" },
-  { name: "BO6 / Warzone", slug: "bo6-warzone", description: "Black Ops 6 and Warzone internal", color: "from-indigo-500 to-blue-500" },
-  { name: "R6 External", slug: "r6-external", description: "Rainbow Six Siege external cheat", color: "from-sky-500 to-blue-500" },
-  { name: "R6 Unlock All", slug: "r6-unlock-all", description: "Rainbow Six Siege unlock all operators", color: "from-sky-500 to-cyan-500" },
-  { name: "Arc Raiders (Syringe)", slug: "arc-raiders", description: "Arc Raiders via Syringe loader", color: "from-teal-500 to-emerald-500" },
-  { name: "Arc Raiders (Ancient)", slug: "arc-raiders-alt", description: "Arc Raiders via Ancient loader", color: "from-teal-500 to-green-500" },
-  { name: "ABI Internal", slug: "abi-internal", description: "ABI internal cheat with Orion loader", color: "from-emerald-500 to-green-500" },
-  { name: "RL AI", slug: "rl-ai", description: "Rocket League AI bot with Discord overlay", color: "from-green-500 to-lime-500" },
-  { name: "NFA Loader", slug: "nfa-loader", description: "NFA account loader (WebView2)", color: "from-lime-500 to-yellow-500" },
-  { name: "BETA HWID Spoofer", slug: "beta-hwid-spoofer", description: "Temporary HWID spoofer with cleaning system", color: "from-purple-500 to-pink-500" },
-  { name: "Perm Spoofer", slug: "perm-spoofer", description: "Permanent HWID spoofer for hardware bans", color: "from-pink-500 to-rose-500" },
-];
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { productsTitle, productsSubtitle, products } = await getHomeConfig();
+
   return (
     <div className="relative">
       {/* Hero */}
@@ -82,22 +68,25 @@ export default function HomePage() {
         <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              All Products
+              {productsTitle}
             </h2>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-              Select a product below to view its full setup guide, loader download, and troubleshooting steps.
+              {productsSubtitle}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {products.map((product) => (
               <Link
-                key={product.slug}
+                key={product.id}
                 href={`/docs/${product.slug}`}
                 className="group relative rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 transition-all duration-300"
               >
                 {/* Gradient top bar */}
-                <div className={`h-1.5 w-full bg-gradient-to-r ${product.color}`} />
+                <div
+                  className="h-1.5 w-full"
+                  style={{ backgroundImage: `linear-gradient(to right, ${product.colorFrom}, ${product.colorTo})` }}
+                />
 
                 <div className="p-5">
                   <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">
