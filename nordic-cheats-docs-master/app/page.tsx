@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, BookOpen, Bot, Wrench, ExternalLink, ChevronRight } from "lucide-react";
-import { getHomeConfig } from "@/lib/homepage";
+import { getHomeConfig, type CardStyle } from "@/lib/homepage";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -77,33 +77,96 @@ export default async function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {products.map((product) => (
-              <Link
-                key={product.id}
-                href={`/docs/${product.slug}`}
-                className="group relative rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 transition-all duration-300"
-              >
-                {/* Gradient top bar */}
-                <div
-                  className="h-1.5 w-full"
-                  style={{ backgroundImage: `linear-gradient(to right, ${product.colorFrom}, ${product.colorTo})` }}
-                />
+            {products.map((product) => {
+              const style: CardStyle = product.cardStyle ?? "classic";
+              const grad = `linear-gradient(to right, ${product.colorFrom}, ${product.colorTo})`;
 
-                <div className="p-5">
-                  <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">
-                    {product.name}
-                  </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {product.description}
-                  </p>
+              if (style === "rounded") {
+                return (
+                  <Link key={product.id} href={`/docs/${product.slug}`}
+                    className="group relative rounded-3xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 transition-all duration-300 text-center"
+                  >
+                    <div className="h-2 w-full rounded-t-3xl" style={{ backgroundImage: grad }} />
+                    <div className="px-5 py-6">
+                      <div className="inline-flex h-10 w-10 items-center justify-center rounded-full mb-3 text-sm font-bold text-white" style={{ backgroundImage: grad }}>
+                        {product.name.charAt(0)}
+                      </div>
+                      <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">{product.name}</h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
+                      <div className="mt-4 flex items-center justify-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        View Guide <ChevronRight className="h-3.5 w-3.5" />
+                      </div>
+                    </div>
+                  </Link>
+                );
+              }
 
-                  <div className="mt-4 flex items-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    View Guide
-                    <ChevronRight className="h-3.5 w-3.5" />
+              if (style === "compact") {
+                return (
+                  <Link key={product.id} href={`/docs/${product.slug}`}
+                    className="group relative flex rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 transition-all duration-300"
+                  >
+                    <div className="w-1.5 shrink-0" style={{ backgroundImage: `linear-gradient(to bottom, ${product.colorFrom}, ${product.colorTo})` }} />
+                    <div className="p-4 min-w-0">
+                      <h3 className="font-semibold text-sm mb-1 group-hover:text-primary transition-colors truncate">{product.name}</h3>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-2">{product.description}</p>
+                    </div>
+                    <div className="flex items-center pr-3 shrink-0">
+                      <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                  </Link>
+                );
+              }
+
+              if (style === "banner") {
+                return (
+                  <Link key={product.id} href={`/docs/${product.slug}`}
+                    className="group relative rounded-2xl overflow-hidden hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 transition-all duration-300"
+                  >
+                    <div className="h-20 w-full flex items-end p-4" style={{ backgroundImage: `linear-gradient(135deg, ${product.colorFrom}, ${product.colorTo})` }}>
+                      <h3 className="font-bold text-base text-white drop-shadow-sm">{product.name}</h3>
+                    </div>
+                    <div className="bg-card border border-t-0 border-border rounded-b-2xl p-4">
+                      <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
+                      <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        View Guide <ChevronRight className="h-3.5 w-3.5" />
+                      </div>
+                    </div>
+                  </Link>
+                );
+              }
+
+              if (style === "minimal") {
+                return (
+                  <Link key={product.id} href={`/docs/${product.slug}`}
+                    className="group relative rounded-2xl p-5 hover:-translate-y-0.5 transition-all duration-300"
+                  >
+                    <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">{product.name}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
+                    <div className="mt-4 h-0.5 w-12 rounded-full group-hover:w-full transition-all duration-500" style={{ backgroundImage: grad }} />
+                    <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      View Guide <ChevronRight className="h-3.5 w-3.5" />
+                    </div>
+                  </Link>
+                );
+              }
+
+              // Classic (default)
+              return (
+                <Link key={product.id} href={`/docs/${product.slug}`}
+                  className="group relative rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  <div className="h-1.5 w-full" style={{ backgroundImage: grad }} />
+                  <div className="p-5">
+                    <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">{product.name}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
+                    <div className="mt-4 flex items-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      View Guide <ChevronRight className="h-3.5 w-3.5" />
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

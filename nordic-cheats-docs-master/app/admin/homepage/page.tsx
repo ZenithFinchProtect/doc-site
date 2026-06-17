@@ -18,6 +18,16 @@ import {
   ExternalLink,
 } from "lucide-react";
 
+type CardStyle = "classic" | "rounded" | "compact" | "banner" | "minimal";
+
+const cardStyleOptions: { value: CardStyle; label: string; desc: string }[] = [
+  { value: "classic", label: "Classic", desc: "Gradient top bar" },
+  { value: "rounded", label: "Rounded", desc: "Pill shape, centered" },
+  { value: "compact", label: "Compact", desc: "Side accent bar" },
+  { value: "banner", label: "Banner", desc: "Gradient header" },
+  { value: "minimal", label: "Minimal", desc: "No border, underline" },
+];
+
 interface HomeProduct {
   id: string;
   name: string;
@@ -25,6 +35,7 @@ interface HomeProduct {
   slug: string;
   colorFrom: string;
   colorTo: string;
+  cardStyle?: CardStyle;
 }
 
 interface HomeConfig {
@@ -95,6 +106,7 @@ export default function HomepageEditorPage() {
         slug: "",
         colorFrom: "#3b82f6",
         colorTo: "#06b6d4",
+        cardStyle: "classic" as CardStyle,
       },
     ]);
     setDirty(true);
@@ -327,7 +339,7 @@ export default function HomepageEditorPage() {
                               className="w-full h-9 rounded-lg border border-border bg-background px-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
                             />
                           </div>
-                          <div className="flex items-center gap-4">
+                          <div className="flex flex-wrap items-center gap-4">
                             <div className="flex items-center gap-2">
                               <label className="text-[11px] font-medium text-muted-foreground">Color from</label>
                               <input
@@ -345,6 +357,20 @@ export default function HomepageEditorPage() {
                                 onChange={(e) => updateProduct(product.id, { colorTo: e.target.value })}
                                 className="h-8 w-10 rounded border border-border bg-background cursor-pointer"
                               />
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <label className="text-[11px] font-medium text-muted-foreground">Card style</label>
+                              <select
+                                value={product.cardStyle ?? "classic"}
+                                onChange={(e) => updateProduct(product.id, { cardStyle: e.target.value as CardStyle })}
+                                className="h-8 rounded-lg border border-border bg-background px-2 text-xs outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer"
+                              >
+                                {cardStyleOptions.map((opt) => (
+                                  <option key={opt.value} value={opt.value}>
+                                    {opt.label} — {opt.desc}
+                                  </option>
+                                ))}
+                              </select>
                             </div>
                           </div>
                         </div>

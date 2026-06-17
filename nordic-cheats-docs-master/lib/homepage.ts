@@ -1,5 +1,15 @@
 import { loadHomeConfig } from "./storage";
 
+export type CardStyle = "classic" | "rounded" | "compact" | "banner" | "minimal";
+
+export const cardStyles: { value: CardStyle; label: string }[] = [
+  { value: "classic", label: "Classic" },
+  { value: "rounded", label: "Rounded" },
+  { value: "compact", label: "Compact" },
+  { value: "banner", label: "Banner" },
+  { value: "minimal", label: "Minimal" },
+];
+
 export interface HomeProduct {
   id: string;
   name: string;
@@ -7,6 +17,7 @@ export interface HomeProduct {
   slug: string;
   colorFrom: string;
   colorTo: string;
+  cardStyle?: CardStyle;
 }
 
 export interface HomeConfig {
