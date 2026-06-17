@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAuthenticated } from "@/lib/auth";
 import { clearHomeConfig, saveHomeConfig } from "@/lib/storage";
-import { getHomeConfig } from "@/lib/homepage";
-import type { HomeConfig, HomeProduct } from "@/lib/homepage";
+import { getHomeConfig, cardStyles } from "@/lib/homepage";
+import type { HomeConfig, HomeProduct, CardStyle } from "@/lib/homepage";
 
 export const runtime = "edge";
 
@@ -24,6 +24,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: "Invalid products" }, { status: 400 });
     }
 
+    const validStyles = cardStyles.map((s) => s.value);
     const products: HomeProduct[] = body.products.map((p, i) => ({
       id: typeof p.id === "string" && p.id.length > 0 ? p.id : `product-${i}`,
       name: String(p.name ?? ""),
@@ -31,6 +32,9 @@ export async function PUT(request: NextRequest) {
       slug: String(p.slug ?? ""),
       colorFrom: String(p.colorFrom ?? "#3b82f6"),
       colorTo: String(p.colorTo ?? "#06b6d4"),
+      cardStyle: validStyles.includes(p.cardStyle as CardStyle)
+        ? (p.cardStyle as CardStyle)
+        : "classic",
     }));
 
     const config: HomeConfig = {
