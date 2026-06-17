@@ -11,11 +11,12 @@ export default async function HomePage() {
   return (
     <div className="relative">
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10">
+      <section className="relative">
+        <div className="absolute inset-0 -z-10 overflow-visible">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary/20 rounded-full blur-[120px] animate-glow" />
           <div className="absolute top-20 left-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[80px]" />
           <div className="absolute top-40 right-1/4 w-[300px] h-[300px] bg-cyan-500/10 rounded-full blur-[80px]" />
+          <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-primary/10 rounded-full blur-[120px]" />
         </div>
 
         <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
@@ -64,7 +65,7 @@ export default async function HomePage() {
       </section>
 
       {/* Products by Category */}
-      <section className="border-t border-border bg-muted/30">
+      <section className="relative">
         <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
