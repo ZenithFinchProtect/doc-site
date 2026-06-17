@@ -1,35 +1,22 @@
 import Link from "next/link";
 import { ArrowRight, BookOpen, Bot, Wrench, ExternalLink, ChevronRight } from "lucide-react";
+import { getHomeConfig, type CardStyle } from "@/lib/homepage";
 
-const products = [
-  { name: "Rust Internal Plus", slug: "rust-internal-plus", description: "USB flash drive injection method", color: "from-orange-500 to-red-500" },
-  { name: "Rust Internal Pro", slug: "rust-internal-pro", description: "Syringe loader with Discord overlay", color: "from-orange-500 to-red-500" },
-  { name: "Rust Lite", slug: "rust-lite", description: "Syringe loader — lightweight build", color: "from-orange-500 to-amber-500" },
-  { name: "Rust Lite (Orion)", slug: "rust-lite-alt", description: "Alternative Orion loader setup", color: "from-orange-500 to-amber-500" },
-  { name: "Rust Script Setup", slug: "rust-script-setup", description: "Recoil script with auto weapon detection", color: "from-amber-500 to-yellow-500" },
-  { name: "The Externals", slug: "the-externals", description: "External cheat with driver injection", color: "from-blue-500 to-cyan-500" },
-  { name: "BO7 Internal", slug: "bo7", description: "Black Ops 7 internal with RivaTuner", color: "from-blue-600 to-indigo-500" },
-  { name: "BO6 / Warzone", slug: "bo6-warzone", description: "Black Ops 6 and Warzone internal", color: "from-indigo-500 to-blue-500" },
-  { name: "R6 External", slug: "r6-external", description: "Rainbow Six Siege external cheat", color: "from-sky-500 to-blue-500" },
-  { name: "R6 Unlock All", slug: "r6-unlock-all", description: "Rainbow Six Siege unlock all operators", color: "from-sky-500 to-cyan-500" },
-  { name: "Arc Raiders (Syringe)", slug: "arc-raiders", description: "Arc Raiders via Syringe loader", color: "from-teal-500 to-emerald-500" },
-  { name: "Arc Raiders (Ancient)", slug: "arc-raiders-alt", description: "Arc Raiders via Ancient loader", color: "from-teal-500 to-green-500" },
-  { name: "ABI Internal", slug: "abi-internal", description: "ABI internal cheat with Orion loader", color: "from-emerald-500 to-green-500" },
-  { name: "RL AI", slug: "rl-ai", description: "Rocket League AI bot with Discord overlay", color: "from-green-500 to-lime-500" },
-  { name: "NFA Loader", slug: "nfa-loader", description: "NFA account loader (WebView2)", color: "from-lime-500 to-yellow-500" },
-  { name: "BETA HWID Spoofer", slug: "beta-hwid-spoofer", description: "Temporary HWID spoofer with cleaning system", color: "from-purple-500 to-pink-500" },
-  { name: "Perm Spoofer", slug: "perm-spoofer", description: "Permanent HWID spoofer for hardware bans", color: "from-pink-500 to-rose-500" },
-];
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { productsTitle, productsSubtitle, products } = await getHomeConfig();
+
   return (
     <div className="relative">
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10">
+      <section className="relative">
+        <div className="absolute inset-0 -z-10 overflow-visible">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary/20 rounded-full blur-[120px] animate-glow" />
           <div className="absolute top-20 left-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[80px]" />
           <div className="absolute top-40 right-1/4 w-[300px] h-[300px] bg-cyan-500/10 rounded-full blur-[80px]" />
+          <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-primary/10 rounded-full blur-[120px]" />
         </div>
 
         <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
@@ -78,42 +65,108 @@ export default function HomePage() {
       </section>
 
       {/* Products by Category */}
-      <section className="border-t border-border bg-muted/30">
+      <section className="relative">
         <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              All Products
+              {productsTitle}
             </h2>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-              Select a product below to view its full setup guide, loader download, and troubleshooting steps.
+              {productsSubtitle}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {products.map((product) => (
-              <Link
-                key={product.slug}
-                href={`/docs/${product.slug}`}
-                className="group relative rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 transition-all duration-300"
-              >
-                {/* Gradient top bar */}
-                <div className={`h-1.5 w-full bg-gradient-to-r ${product.color}`} />
+            {products.map((product) => {
+              const style: CardStyle = product.cardStyle ?? "classic";
+              const grad = `linear-gradient(to right, ${product.colorFrom}, ${product.colorTo})`;
 
-                <div className="p-5">
-                  <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">
-                    {product.name}
-                  </h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {product.description}
-                  </p>
+              if (style === "rounded") {
+                return (
+                  <Link key={product.id} href={`/docs/${product.slug}`}
+                    className="group relative rounded-3xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 transition-all duration-300 text-center"
+                  >
+                    <div className="h-2 w-full rounded-t-3xl" style={{ backgroundImage: grad }} />
+                    <div className="px-5 py-6">
+                      <div className="inline-flex h-10 w-10 items-center justify-center rounded-full mb-3 text-sm font-bold text-white" style={{ backgroundImage: grad }}>
+                        {product.name.charAt(0)}
+                      </div>
+                      <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">{product.name}</h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
+                      <div className="mt-4 flex items-center justify-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        View Guide <ChevronRight className="h-3.5 w-3.5" />
+                      </div>
+                    </div>
+                  </Link>
+                );
+              }
 
-                  <div className="mt-4 flex items-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    View Guide
-                    <ChevronRight className="h-3.5 w-3.5" />
+              if (style === "compact") {
+                return (
+                  <Link key={product.id} href={`/docs/${product.slug}`}
+                    className="group relative flex rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 transition-all duration-300"
+                  >
+                    <div className="w-1.5 shrink-0" style={{ backgroundImage: `linear-gradient(to bottom, ${product.colorFrom}, ${product.colorTo})` }} />
+                    <div className="p-4 min-w-0">
+                      <h3 className="font-semibold text-sm mb-1 group-hover:text-primary transition-colors truncate">{product.name}</h3>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-2">{product.description}</p>
+                    </div>
+                    <div className="flex items-center pr-3 shrink-0">
+                      <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                  </Link>
+                );
+              }
+
+              if (style === "banner") {
+                return (
+                  <Link key={product.id} href={`/docs/${product.slug}`}
+                    className="group relative rounded-2xl overflow-hidden hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 transition-all duration-300"
+                  >
+                    <div className="h-20 w-full flex items-end p-4" style={{ backgroundImage: `linear-gradient(135deg, ${product.colorFrom}, ${product.colorTo})` }}>
+                      <h3 className="font-bold text-base text-white drop-shadow-sm">{product.name}</h3>
+                    </div>
+                    <div className="bg-card border border-t-0 border-border rounded-b-2xl p-4">
+                      <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
+                      <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        View Guide <ChevronRight className="h-3.5 w-3.5" />
+                      </div>
+                    </div>
+                  </Link>
+                );
+              }
+
+              if (style === "minimal") {
+                return (
+                  <Link key={product.id} href={`/docs/${product.slug}`}
+                    className="group relative rounded-2xl p-5 hover:-translate-y-0.5 transition-all duration-300"
+                  >
+                    <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">{product.name}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
+                    <div className="mt-4 h-0.5 w-12 rounded-full group-hover:w-full transition-all duration-500" style={{ backgroundImage: grad }} />
+                    <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      View Guide <ChevronRight className="h-3.5 w-3.5" />
+                    </div>
+                  </Link>
+                );
+              }
+
+              // Classic (default)
+              return (
+                <Link key={product.id} href={`/docs/${product.slug}`}
+                  className="group relative rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  <div className="h-1.5 w-full" style={{ backgroundImage: grad }} />
+                  <div className="p-5">
+                    <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">{product.name}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
+                    <div className="mt-4 flex items-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      View Guide <ChevronRight className="h-3.5 w-3.5" />
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

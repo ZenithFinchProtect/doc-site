@@ -14,6 +14,7 @@ import {
   Eye,
   Pencil,
   Search,
+  LayoutGrid,
 } from "lucide-react";
 
 interface DocPage {
@@ -185,6 +186,19 @@ export default function EditorPage() {
               <LogOut className="h-3.5 w-3.5" />
               Logout
             </button>
+          </div>
+          <div className="flex items-center gap-1 rounded-lg border border-border overflow-hidden mb-3">
+            <span className="flex flex-1 items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-primary text-primary-foreground">
+              <FileText className="h-3 w-3" />
+              Docs
+            </span>
+            <Link
+              href="/admin/homepage"
+              className="flex flex-1 items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-medium hover:bg-muted transition-colors"
+            >
+              <LayoutGrid className="h-3 w-3" />
+              Homepage
+            </Link>
           </div>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
