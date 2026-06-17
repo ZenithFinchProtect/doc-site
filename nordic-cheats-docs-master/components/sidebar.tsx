@@ -10,7 +10,7 @@ export function Sidebar({ categories }: { categories: DocCategory[] }) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 shrink-0 border-r border-border">
+    <aside className="w-64 shrink-0 border-r border-primary/20 bg-card/40 backdrop-blur-xl">
       <div className="sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto py-6 pl-6 pr-4">
         <nav className="space-y-6">
           {categories.map((category) => (

@@ -76,7 +76,7 @@ export default async function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {products.map((product) => {
               const style: CardStyle = product.cardStyle ?? "classic";
               const grad = `linear-gradient(to right, ${product.colorFrom}, ${product.colorTo})`;
@@ -84,11 +84,11 @@ export default async function HomePage() {
               if (style === "rounded") {
                 return (
                   <Link key={product.id} href={`/docs/${product.slug}`}
-                    className="group relative rounded-3xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 transition-all duration-300 text-center"
+                    className="glass-card group text-center"
                   >
-                    <div className="h-2 w-full rounded-t-3xl" style={{ backgroundImage: grad }} />
-                    <div className="px-5 py-6">
-                      <div className="inline-flex h-10 w-10 items-center justify-center rounded-full mb-3 text-sm font-bold text-white" style={{ backgroundImage: grad }}>
+                    <div className="h-2 w-full" style={{ backgroundImage: grad }} />
+                    <div className="relative z-10 px-6 py-7">
+                      <div className="inline-flex h-12 w-12 items-center justify-center rounded-full mb-4 text-sm font-bold text-white" style={{ backgroundImage: grad }}>
                         {product.name.charAt(0)}
                       </div>
                       <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">{product.name}</h3>
@@ -104,14 +104,14 @@ export default async function HomePage() {
               if (style === "compact") {
                 return (
                   <Link key={product.id} href={`/docs/${product.slug}`}
-                    className="group relative flex rounded-xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 transition-all duration-300"
+                    className="glass-card-sm group flex"
                   >
                     <div className="w-1.5 shrink-0" style={{ backgroundImage: `linear-gradient(to bottom, ${product.colorFrom}, ${product.colorTo})` }} />
-                    <div className="p-4 min-w-0">
+                    <div className="relative z-10 p-4 min-w-0">
                       <h3 className="font-semibold text-sm mb-1 group-hover:text-primary transition-colors truncate">{product.name}</h3>
                       <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-2">{product.description}</p>
                     </div>
-                    <div className="flex items-center pr-3 shrink-0">
+                    <div className="relative z-10 flex items-center pr-3 shrink-0">
                       <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
                     </div>
                   </Link>
@@ -121,12 +121,12 @@ export default async function HomePage() {
               if (style === "banner") {
                 return (
                   <Link key={product.id} href={`/docs/${product.slug}`}
-                    className="group relative rounded-2xl overflow-hidden hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 transition-all duration-300"
+                    className="glass-card group"
                   >
-                    <div className="h-20 w-full flex items-end p-4" style={{ backgroundImage: `linear-gradient(135deg, ${product.colorFrom}, ${product.colorTo})` }}>
+                    <div className="h-20 w-full flex items-end p-5" style={{ backgroundImage: `linear-gradient(135deg, ${product.colorFrom}, ${product.colorTo})` }}>
                       <h3 className="font-bold text-base text-white drop-shadow-sm">{product.name}</h3>
                     </div>
-                    <div className="bg-card border border-t-0 border-border rounded-b-2xl p-4">
+                    <div className="relative z-10 p-5">
                       <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
                       <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         View Guide <ChevronRight className="h-3.5 w-3.5" />
@@ -139,13 +139,15 @@ export default async function HomePage() {
               if (style === "minimal") {
                 return (
                   <Link key={product.id} href={`/docs/${product.slug}`}
-                    className="group relative rounded-2xl p-5 hover:-translate-y-0.5 transition-all duration-300"
+                    className="glass-card group p-6"
                   >
-                    <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">{product.name}</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
-                    <div className="mt-4 h-0.5 w-12 rounded-full group-hover:w-full transition-all duration-500" style={{ backgroundImage: grad }} />
-                    <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      View Guide <ChevronRight className="h-3.5 w-3.5" />
+                    <div className="relative z-10">
+                      <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">{product.name}</h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
+                      <div className="mt-4 h-0.5 w-12 rounded-full group-hover:w-full transition-all duration-500" style={{ backgroundImage: grad }} />
+                      <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        View Guide <ChevronRight className="h-3.5 w-3.5" />
+                      </div>
                     </div>
                   </Link>
                 );
@@ -154,10 +156,10 @@ export default async function HomePage() {
               // Classic (default)
               return (
                 <Link key={product.id} href={`/docs/${product.slug}`}
-                  className="group relative rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 transition-all duration-300"
+                  className="glass-card group"
                 >
                   <div className="h-1.5 w-full" style={{ backgroundImage: grad }} />
-                  <div className="p-5">
+                  <div className="relative z-10 p-6">
                     <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">{product.name}</h3>
                     <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
                     <div className="mt-4 flex items-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -172,19 +174,19 @@ export default async function HomePage() {
       </section>
 
       {/* Quick Links */}
-      <section className="border-t border-border">
+      <section className="border-t border-primary/10">
         <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <a
               href="https://support.nordiccheats.net/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-2xl border border-border bg-card p-6 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+              className="glass-card group flex items-center gap-4 p-7"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 shrink-0">
-                <Wrench className="h-5 w-5" />
+              <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-[14px] bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 shrink-0">
+                <Wrench className="h-6 w-6" />
               </div>
-              <div>
+              <div className="relative z-10">
                 <h3 className="font-semibold mb-0.5">Support Tool</h3>
                 <p className="text-xs text-muted-foreground">Run the tool and send your NORDIC-XXXXXXXX ID</p>
               </div>
@@ -193,24 +195,24 @@ export default async function HomePage() {
               href="https://discord.com/invite/nordiccheat"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-2xl border border-border bg-card p-6 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+              className="glass-card group flex items-center gap-4 p-7"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 shrink-0">
-                <Bot className="h-5 w-5" />
+              <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-[14px] bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 shrink-0">
+                <Bot className="h-6 w-6" />
               </div>
-              <div>
+              <div className="relative z-10">
                 <h3 className="font-semibold mb-0.5">Discord</h3>
                 <p className="text-xs text-muted-foreground">Join for live support and announcements</p>
               </div>
             </a>
             <Link
               href="/docs"
-              className="group flex items-center gap-4 rounded-2xl border border-border bg-card p-6 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+              className="glass-card group flex items-center gap-4 p-7"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 shrink-0">
-                <BookOpen className="h-5 w-5" />
+              <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-[14px] bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300 shrink-0">
+                <BookOpen className="h-6 w-6" />
               </div>
-              <div>
+              <div className="relative z-10">
                 <h3 className="font-semibold mb-0.5">All Docs</h3>
                 <p className="text-xs text-muted-foreground">Full documentation index by category</p>
               </div>
@@ -220,7 +222,7 @@ export default async function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border">
+      <footer className="border-t border-primary/10">
         <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <p>Nordic Cheats Documentation</p>
           <div className="flex items-center gap-6">

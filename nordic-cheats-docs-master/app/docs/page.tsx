@@ -23,9 +23,9 @@ export default async function DocsPage() {
                 <Link
                   key={page.slug}
                   href={`/docs/${page.slug}`}
-                  className="group flex items-center justify-between rounded-xl border border-border p-4 hover:border-primary/50 hover:bg-card transition-all"
+                  className="glass-card-sm group flex items-center justify-between p-5"
                 >
-                  <div>
+                  <div className="relative z-10">
                     <h3 className="font-medium group-hover:text-primary transition-colors">
                       {page.title}
                     </h3>
@@ -33,7 +33,7 @@ export default async function DocsPage() {
                       {page.description}
                     </p>
                   </div>
-                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0 ml-4" />
+                  <ArrowRight className="relative z-10 h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0 ml-4" />
                 </Link>
               ))}
             </div>

@@ -175,8 +175,8 @@ export default function EditorPage() {
   return (
     <div className="flex h-[calc(100vh-4rem)]">
       {/* Sidebar */}
-      <aside className="w-72 border-r border-border bg-card flex flex-col shrink-0">
-        <div className="p-4 border-b border-border">
+      <aside className="w-72 border-r border-primary/20 bg-card/60 backdrop-blur-xl flex flex-col shrink-0">
+        <div className="p-4 border-b border-primary/20">
           <div className="flex items-center justify-between mb-3">
             <h2 className="font-semibold text-sm">Doc Editor</h2>
             <button
@@ -252,7 +252,7 @@ export default function EditorPage() {
         ) : (
           <>
             {/* Toolbar */}
-            <div className="flex items-center justify-between px-6 py-3 border-b border-border bg-card shrink-0">
+            <div className="flex items-center justify-between px-6 py-3 border-b border-primary/20 bg-card/60 backdrop-blur-xl shrink-0">
               <div className="flex items-center gap-2 min-w-0">
                 <span className="text-xs text-muted-foreground">{selectedDoc?.category}</span>
                 <ChevronRight className="h-3 w-3 text-muted-foreground" />
