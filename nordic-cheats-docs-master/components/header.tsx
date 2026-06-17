@@ -16,7 +16,7 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-50 w-full border-b border-primary/10 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
         <div className="mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <div className="flex items-center gap-6">
@@ -96,8 +96,8 @@ export function Header() {
       {searchOpen && (
         <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[20vh]">
           <div className="fixed inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setSearchOpen(false)} />
-          <div className="relative w-full max-w-lg mx-4 rounded-xl border border-border bg-card shadow-2xl">
-            <div className="flex items-center gap-3 px-4 border-b border-border">
+          <div className="relative w-full max-w-lg mx-4 glass-card-static shadow-2xl">
+            <div className="flex items-center gap-3 px-4 border-b border-primary/20">
               <Search className="h-4 w-4 text-muted-foreground shrink-0" />
               <input
                 type="text"
@@ -120,7 +120,7 @@ export function Header() {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
           <div className="fixed inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <div className="fixed top-16 left-0 right-0 border-b border-border bg-background p-4 space-y-1">
+          <div className="fixed top-16 left-0 right-0 border-b border-primary/10 bg-background/90 backdrop-blur-xl p-4 space-y-1">
             <Link href="/docs" className="block px-3 py-2 text-sm font-medium rounded-md hover:bg-accent" onClick={() => setMobileMenuOpen(false)}>
               Documentation
             </Link>

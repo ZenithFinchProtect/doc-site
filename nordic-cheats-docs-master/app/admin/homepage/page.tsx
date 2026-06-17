@@ -179,7 +179,7 @@ export default function HomepageEditorPage() {
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)]">
       {/* Toolbar */}
-      <div className="flex items-center justify-between px-6 py-3 border-b border-border bg-card shrink-0">
+      <div className="flex items-center justify-between px-6 py-3 border-b border-primary/20 bg-card/60 backdrop-blur-xl shrink-0">
         <div className="flex items-center gap-1 rounded-lg border border-border overflow-hidden">
           <Link
             href="/admin/editor"
@@ -296,7 +296,7 @@ export default function HomepageEditorPage() {
                 {products.map((product, idx) => (
                   <div
                     key={product.id}
-                    className="rounded-xl border border-border bg-card overflow-hidden"
+                    className="glass-card-sm overflow-hidden"
                   >
                     <div
                       className="h-1.5 w-full"
