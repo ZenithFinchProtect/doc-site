@@ -1,17 +1,17 @@
+import { getRequestContext } from "@cloudflare/next-on-pages";
 import type { DocPage } from "./docs";
 import type { HomeConfig } from "./homepage";
+import type { KVNamespace } from "@cloudflare/workers-types";
 
 const KV_KEY = "doc_overrides";
 const HOME_KV_KEY = "home_config";
 
 type Overrides = Record<string, Partial<DocPage>>;
 
-async function getKV(): Promise<any | null> {
+async function getKV(): Promise<KVNamespace | null> {
   try {
-    // Dynamic import with webpackIgnore to prevent build-time resolution
-    const mod = await import(/* webpackIgnore: true */ "@cloudflare/next-on-pages");
-    const { env } = mod.getRequestContext();
-    return env?.DOC_OVERRIDES || null;
+    const { env } = getRequestContext();
+    return (env as { DOC_OVERRIDES?: KVNamespace }).DOC_OVERRIDES ?? null;
   } catch {
     return null;
   }
