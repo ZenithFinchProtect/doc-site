@@ -5,4 +5,4 @@ pages_build_output_dir = ".vercel/output/static"
 
 [[kv_namespaces]]
 binding = "DOC_OVERRIDES"
-id = "e230c672ce9c4c4e88d2f62def8054b0"
+id = "693e7fbafad24bd0aa22c9a6b478d59c"
