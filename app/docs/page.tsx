@@ -2,6 +2,9 @@ import Link from "next/link";
 import { getDocsByCategory } from "@/lib/docs";
 import { ArrowRight } from "lucide-react";
 
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
+
 export default async function DocsPage() {
   const categories = await getDocsByCategory();
 

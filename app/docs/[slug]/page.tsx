@@ -1,11 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getDocBySlug, getAllSlugs, docs } from "@/lib/docs";
+import { getDocBySlug, docs } from "@/lib/docs";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-export function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }));
-}
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
