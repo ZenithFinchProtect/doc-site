@@ -18,12 +18,6 @@ export default async function HomePage() {
 
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 overflow-visible">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary/20 rounded-full blur-[120px] animate-glow" />
-          <div className="absolute top-20 left-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[80px]" />
-          <div className="absolute top-40 right-1/4 w-[300px] h-[300px] bg-cyan-500/10 rounded-full blur-[80px]" />
-          <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-primary/10 rounded-full blur-[120px]" />
-        </div>
 
         <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-center py-20 sm:py-28 lg:py-36 text-center">
@@ -170,7 +164,7 @@ export default async function HomePage() {
       </section>
 
       {/* Quick Links */}
-      <section className="border-t border-primary/10">
+      <section className="relative">
         <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <a
@@ -218,7 +212,7 @@ export default async function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-primary/10">
+      <footer className="relative border-t border-white/5">
         <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <p>Nordic Cheats Documentation</p>
           <div className="flex items-center gap-6">
