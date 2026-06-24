@@ -1,4 +1,4 @@
-import { loadHomeConfig } from "./storage";
+import { loadHomeConfig, loadOverrides } from "./storage";
 
 export type CardStyle = "classic" | "rounded" | "compact" | "banner" | "minimal";
 
@@ -53,10 +53,25 @@ export const defaultHomeConfig: HomeConfig = {
 
 export async function getHomeConfig(): Promise<HomeConfig> {
   const stored = await loadHomeConfig();
-  if (!stored) return defaultHomeConfig;
-  return {
-    productsTitle: stored.productsTitle ?? defaultHomeConfig.productsTitle,
-    productsSubtitle: stored.productsSubtitle ?? defaultHomeConfig.productsSubtitle,
-    products: Array.isArray(stored.products) ? stored.products : defaultHomeConfig.products,
-  };
+  const base = stored
+    ? {
+        productsTitle: stored.productsTitle ?? defaultHomeConfig.productsTitle,
+        productsSubtitle: stored.productsSubtitle ?? defaultHomeConfig.productsSubtitle,
+        products: Array.isArray(stored.products) ? stored.products : defaultHomeConfig.products,
+      }
+    : defaultHomeConfig;
+
+  // Merge doc overrides so editor changes to title/description reflect on the homepage
+  const overrides = await loadOverrides();
+  const products = base.products.map((product) => {
+    const override = overrides[product.slug];
+    if (!override) return product;
+    return {
+      ...product,
+      ...(override.title !== undefined && { name: override.title }),
+      ...(override.description !== undefined && { description: override.description }),
+    };
+  });
+
+  return { ...base, products };
 }
