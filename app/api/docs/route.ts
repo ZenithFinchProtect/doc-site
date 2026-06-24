@@ -11,5 +11,7 @@ export async function GET() {
   }
 
   const docs = await getAllDocs();
-  return NextResponse.json(docs);
+  return NextResponse.json(docs, {
+    headers: { "Cache-Control": "no-store" },
+  });
 }
