@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, BookOpen, Bot, Wrench, ExternalLink, ChevronRight } from "lucide-react";
 import { getHomeConfig, type CardStyle } from "@/lib/homepage";
+import { ParticlesBackground } from "@/components/particles-background";
 
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
@@ -11,7 +12,8 @@ export default async function HomePage() {
   return (
     <div className="relative">
       {/* Hero */}
-      <section className="relative">
+      <section className="relative overflow-hidden">
+        <ParticlesBackground />
         <div className="absolute inset-0 -z-10 overflow-visible">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary/20 rounded-full blur-[120px] animate-glow" />
           <div className="absolute top-20 left-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[80px]" />

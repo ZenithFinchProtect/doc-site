@@ -20,9 +20,9 @@
   }
 
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 222 47% 5%;
     --foreground: 0 0% 98%;
-    --card: 240 10% 6%;
+    --card: 222 47% 7%;
     --card-foreground: 0 0% 98%;
     --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
@@ -40,8 +40,77 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply text-foreground antialiased;
   }
+}
+
+/* Nordic wave background */
+.dark body,
+body {
+  background: #07070a url('/hero.jpg') center / cover fixed no-repeat;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(59, 130, 246, 0.20), transparent 32%),
+    radial-gradient(circle at 82% 12%, rgba(14, 165, 233, 0.14), transparent 30%),
+    linear-gradient(135deg, rgba(2, 6, 23, 0.78) 0%, rgba(11, 17, 32, 0.72) 48%, rgba(17, 24, 39, 0.76) 100%),
+    url('/hero.jpg') center / cover no-repeat;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(130, 170, 255, 0.038) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(130, 170, 255, 0.038) 1px, transparent 1px),
+    radial-gradient(circle at 22% 22%, rgba(59, 130, 246, 0.07), transparent 34%),
+    radial-gradient(circle at 82% 68%, rgba(96, 165, 250, 0.045), transparent 30%);
+  background-size:
+    54px 54px,
+    54px 54px,
+    120% 120%,
+    120% 120%;
+  background-position: 0 0, 0 0, center, center;
+  opacity: 0.46;
+  animation: ncGridDrift 20s linear infinite;
+}
+
+@keyframes ncGridDrift {
+  0% { background-position: 0 0, 0 0, center, center; }
+  100% { background-position: 54px 54px, 54px 54px, center, center; }
+}
+
+/* Sheen sweep effect */
+main {
+  position: relative;
+  z-index: 0;
+}
+
+main::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 0%, rgba(96, 165, 250, 0.05) 46%, rgba(96, 165, 250, 0.012) 51%, transparent 56%);
+  background-size: 260% 260%;
+  opacity: 0.22;
+  animation: ncGridSheen 12s ease-in-out infinite;
+}
+
+@keyframes ncGridSheen {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 /* Scrollbar */
