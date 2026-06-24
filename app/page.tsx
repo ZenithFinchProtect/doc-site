@@ -81,18 +81,13 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {products.map((product) => {
               const style: CardStyle = product.cardStyle ?? "classic";
-              const grad = `linear-gradient(to right, ${product.colorFrom}, ${product.colorTo})`;
 
               if (style === "rounded") {
                 return (
                   <Link key={product.id} href={`/docs/${product.slug}`}
                     className="glass-card group text-center"
                   >
-                    <div className="h-2 w-full" style={{ backgroundImage: grad }} />
                     <div className="relative z-10 px-6 py-7">
-                      <div className="inline-flex h-12 w-12 items-center justify-center rounded-full mb-4 text-sm font-bold text-white" style={{ backgroundImage: grad }}>
-                        {product.name.charAt(0)}
-                      </div>
                       <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">{product.name}</h3>
                       <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
                       <div className="mt-4 flex items-center justify-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -108,7 +103,6 @@ export default async function HomePage() {
                   <Link key={product.id} href={`/docs/${product.slug}`}
                     className="glass-card-sm group flex"
                   >
-                    <div className="w-1.5 shrink-0" style={{ backgroundImage: `linear-gradient(to bottom, ${product.colorFrom}, ${product.colorTo})` }} />
                     <div className="relative z-10 p-4 min-w-0">
                       <h3 className="font-semibold text-sm mb-1 group-hover:text-primary transition-colors truncate">{product.name}</h3>
                       <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-2">{product.description}</p>
@@ -125,10 +119,8 @@ export default async function HomePage() {
                   <Link key={product.id} href={`/docs/${product.slug}`}
                     className="glass-card group"
                   >
-                    <div className="h-20 w-full flex items-end p-5" style={{ backgroundImage: `linear-gradient(135deg, ${product.colorFrom}, ${product.colorTo})` }}>
-                      <h3 className="font-bold text-base text-white drop-shadow-sm">{product.name}</h3>
-                    </div>
-                    <div className="relative z-10 p-5">
+                    <div className="relative z-10 p-6">
+                      <h3 className="font-bold text-base mb-2 group-hover:text-primary transition-colors">{product.name}</h3>
                       <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
                       <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         View Guide <ChevronRight className="h-3.5 w-3.5" />
@@ -146,7 +138,6 @@ export default async function HomePage() {
                     <div className="relative z-10">
                       <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">{product.name}</h3>
                       <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
-                      <div className="mt-4 h-0.5 w-12 rounded-full group-hover:w-full transition-all duration-500" style={{ backgroundImage: grad }} />
                       <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         View Guide <ChevronRight className="h-3.5 w-3.5" />
                       </div>
@@ -160,7 +151,6 @@ export default async function HomePage() {
                 <Link key={product.id} href={`/docs/${product.slug}`}
                   className="glass-card group"
                 >
-                  <div className="h-1.5 w-full" style={{ backgroundImage: grad }} />
                   <div className="relative z-10 p-6">
                     <h3 className="font-semibold text-[15px] mb-1.5 group-hover:text-primary transition-colors">{product.name}</h3>
                     <p className="text-xs text-muted-foreground leading-relaxed">{product.description}</p>
